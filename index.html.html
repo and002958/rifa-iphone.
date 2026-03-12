@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Rifa Oficial - iPhone 14</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#141e30,#243b55);
+color:white;
+text-align:center;
+}
+
+header{
+background:black;
+padding:25px;
+font-size:28px;
+font-weight:bold;
+}
+
+.container{
+padding:30px;
+max-width:900px;
+margin:auto;
+}
+
+.iphone-img{
+width:260px;
+margin:30px auto;
+display:block;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,0.5);
+}
+
+.price{
+font-size:26px;
+margin-bottom:20px;
+color:#00ffd0;
+font-weight:bold;
+}
+
+.pixbox{
+background:white;
+color:black;
+padding:25px;
+border-radius:12px;
+margin:20px auto;
+max-width:420px;
+box-shadow:0 8px 25px rgba(0,0,0,0.3);
+}
+
+.pixkey{
+font-size:18px;
+font-weight:bold;
+margin:10px 0;
+}
+
+button{
+padding:15px 28px;
+font-size:16px;
+background:#25D366;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+transition:0.2s;
+}
+
+button:hover{
+transform:scale(1.05);
+}
+
+.numbers{
+display:grid;
+grid-template-columns:repeat(10,1fr);
+gap:10px;
+margin-top:30px;
+}
+
+.number{
+background:white;
+color:black;
+padding:12px;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
+transition:0.2s;
+}
+
+.number:hover{
+background:#00ffd0;
+transform:scale(1.1);
+}
+
+.sold{
+background:red;
+color:white;
+cursor:not-allowed;
+}
+
+.footer{
+margin-top:40px;
+padding:20px;
+font-size:14px;
+opacity:0.8;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+🎉 RIFA OFICIAL IPHONE 14 🎉
+</header>
+
+<div class="container">
+
+<img class="iphone-img"
+src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/IPhone_14_Pro_vector.svg/512px-IPhone_14_Pro_vector.svg.png">
+
+<h2>📱 iPhone 14 - 128GB</h2>
+
+<div class="price">
+🎟 Valor por número: R$30
+</div>
+
+<div class="pixbox">
+
+<h3>💳 Pagamento via PIX</h3>
+
+<p>Chave PIX:</p>
+
+<div class="pixkey">
+SUA-CHAVE-PIX-AQUI
+</div>
+
+<p>Após pagar envie o comprovante:</p>
+
+<a href="https://wa.me/5511959244768">
+<button>Enviar comprovante</button>
+</a>
+
+</div>
+
+<h3>Escolha seu número</h3>
+
+<div class="numbers" id="numbers"></div>
+
+</div>
+
+<div class="footer">
+Sorteio realizado pela Loteria Federal
+</div>
+
+<script>
+
+const container = document.getElementById("numbers")
+
+let soldNumbers = JSON.parse(localStorage.getItem("soldNumbers")) || []
+
+for(let i=1;i<=300;i++){
+
+let numberText = i.toString().padStart(3,"0")
+
+let num = document.createElement("div")
+num.classList.add("number")
+num.innerText = numberText
+
+if(soldNumbers.includes(numberText)){
+num.classList.add("sold")
+}
+
+num.addEventListener("click",function(){
+
+if(soldNumbers.includes(numberText)){
+alert("Número já vendido")
+return
+}
+
+if(confirm("Deseja reservar o número "+numberText+"?")){
+
+soldNumbers.push(numberText)
+
+localStorage.setItem("soldNumbers",JSON.stringify(soldNumbers))
+
+num.classList.add("sold")
+
+window.open(
+"https://wa.me/5511959244768?text=Quero%20comprar%20o%20numero%20"+numberText+"%20da%20rifa%20do%20iPhone%2014"
+)
+
+}
+
+})
+
+container.appendChild(num)
+
+}
+
+</script>
+
+</body>
+</html>
